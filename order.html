@@ -98,12 +98,12 @@
 
         <label>
             Branded pen or pencil
-        <input type="radio" name="gender2" value="male2" required id="brand">
+        <input type="radio" name="gender2" value="male2"  id="brand">
             
         </label><br>
       
         <div class ="form-grp">
-            <input type="submit" name="login-btn" value ="Complete" id="btn-complete" disabled>
+            <input type="submit" name="login-btn" value ="Complete" id="btn-complete"  disabled>
         </div>
     </form>
 
@@ -330,15 +330,17 @@
         let popUpWindow = document.getElementById("popup-window");
         let nameCopy = document.getElementById("user");
         let btnComplete = document.getElementById("btn-complete");
-        btnComplete.onclick = () =>{
+
+        btnComplete.addEventListener("click", showInfo);
+
+        function showInfo(ev){
          popUpWindow.style.display = "block";
         popUpWindow.innerHTML= "The order created. The delivery address is" + street.value + ", " + house.value + ", " + flat.value + ". Customer " +nameCopy.value + " " +surname.value + " <br> <br> <br> <br> Thank you, visit us again! :)" ;
-        }
+        ev.preventDefault();
+    }
 
-        let pop = document.getElementById("popup-window");
         
-      
-        pop.innertext = nameCopy.value;
+
         
             
     </script>
