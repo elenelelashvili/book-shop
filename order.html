@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="order.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+      rel="icon"
+      href="icon.png"
+      type="image/x-icon"
+    />
+    <title>Order</title>
+</head>
+<body>
+    
+    <form class="form-container" autocomplete="off">
+        <h3>Fill the following fields</h3>
+        <div class="form-grp">
+            <label for="username">Name: </label><br>
+            <input  type="text" name="username" placeholder="username" id="user" 
+            onkeyup="isEmpty()" autocomplete="false" required>
+            <p id="userInvalid"> Invalid Input! </p>
+        </div>
+
+        <div class="form-grp">
+            <label for="surname">Surname: </label><br>
+            <input autocomplete="off" type="text" name="surname" placeholder="surname" id="surname" 
+             onkeyup="isEmpty()" required>
+            <p id="surnameInvalid">Invalid Input! </p>
+        </div>
+
+        <div class="form-grp">
+        <label for="date">Date:</label>
+        <input type="date" id="date"  required>
+        <p id="dateInvalid"> Invalid Input!</p>
+
+        </div>
+
+        <div class="form-grp">
+            <label for="street">Street: </label><br>
+            <input autocomplete="off" type="text"  name="street" placeholder="Street" id="street"
+            onkeyup="isEmpty1()" required>
+            <p id="streetInvalid">Invalid Input! </p>
+        </div>
+
+        <div class="form-grp">
+            <label for="house">House: </label><br>
+            <input type="text" autocomplete="off" name="house" placeholder="House" id="house"
+            onkeyup="isEmpty1()" required>
+            <p id="houseInvalid">Invalid Input! </p>
+        </div>
+
+        <div class="form-grp">
+            <label for="flat">Flat: </label><br>
+            <input type="text" autocomplete="off" name="flat" placeholder="Flat" id="flat"
+            onkeyup="isEmpty1()" required>
+            <p id="flatInvalid">Invalid Input! </p>
+        </div>
+
+        <div class="form-grp-1">
+            Payment:<br>
+
+    <label>
+        Cash
+        <input type="radio" name="payment" value="cash" id="cash" onclick="confirm()" required>
+        
+    </label><br>
+
+    <label>
+        Card
+        <input type="radio" name="payment" value="card" id="card" onclick="confirm()" >
+    </label>
+        </div>
+
+        
+
+        Select Gift:<br>
+
+        <label>
+            Pack as a gift
+          <input type="radio" name="gender" value="male" required id="gift">
+         
+        </label><br>
+      
+        <label>
+            Add postcard
+          <input type="radio" name="gender2" value="female" id="postcard">
+          
+        </label><br>
+      
+        <label>
+            Provide 2% discount to the next time
+          <input type="radio" name="gender" value="other" required id="discount">
+          
+        </label><br>
+
+        <label>
+            Branded pen or pencil
+        <input type="radio" name="gender2" value="male2" required id="brand">
+            
+        </label><br>
+      
+        <div class ="form-grp">
+            <input type="submit" name="login-btn" value ="Complete" id="btn-complete" disabled>
+        </div>
+    </form>
+
+    <div class="popup-container">
+    <div class="popup-window" id="popup-window">
+        <p > i am pop up window </p>
+    </div>
+</div>
+    
+    
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script>
+        //field check-start:
+        var userCheck = false;
+        var surnameCheck = false;
+        var dateCheck = false;
+        var streetCheck = false;
+        var houseCheck = false;
+        var flatCheck = false;
+        var paymentCheck = false;
+
+        //user start
+        var user= document.querySelector('#user');
+        var userMessage = document.getElementById("userInvalid");
+        user.addEventListener('keyup', function(){
+            
+            if(user.value.length == 0 || user.value.length > 4 ){
+                user.style.border= '4px solid red';
+                userMessage.style.display = "block";
+                userCheck = false;
+            }else {
+                userMessage.style.display = "none";
+                user.style.border = '1px solid black';
+                userCheck = true;
+            }
+            
+
+            function allLetter(inputtxt){
+        var letters = /^[A-Za-z]{1,4}$/;
+        if(inputtxt.value.match(letters)){
+            user.style.border = 'none';
+            userCheck = true;
+            
+        }else{
+                user.style.border= '4px solid red';
+                userCheck = false;
+            }
+        }
+
+        allLetter(user);
+        });
+
+        //user end 
+
+        //surname start:
+
+        var surname = document.querySelector('#surname');
+        var surnameMessage = document.getElementById("surnameInvalid");
+        surname.addEventListener('keyup', function(){
+
+
+            if(surname.value.length == 0 || surname.value.length > 5){
+                surname.style.border= '4px solid red';
+                surnameMessage.style.display = "block";
+                surnameCheck= false;
+            }else {
+                surname.style.border = '2px solid black';
+                surnameMessage.style.display="none";
+                surnameCheck = true;
+            }
+
+            function allLetter(inputtxt){
+            var letters = /^[A-Za-z]{1,5}$/;
+            if(inputtxt.value.match(letters)){
+                surnameMessage.style.display="none";
+                surname.style.border = '2px solid black';
+                surnameCheck = true;
+                
+            }else{
+                surname.style.border= '4px solid red';
+                surnameMessage.style.display = "block";
+                surnameCheck = false;
+                }
+            }
+
+        allLetter(surname);
+        });
+
+        //surname end
+
+     
+
+
+    // date start:
+    let enterDate = document.getElementById("date");
+    let dateMessage = document.getElementById("dateInvalid");
+    enterDate.addEventListener('input', () => {
+        let now = new Date();
+        let dateValue = document.getElementById("date").value;
+        let newDate = new Date(dateValue);
+        if(newDate <= now){
+                dateMessage.style.display="block";
+                enterDate.style.border= '4px solid red';
+                dateCheck = false;
+        }else{
+            dateMessage.style.display="none";
+                enterDate.style.border = '1px solid black';
+                dateCheck = true;
+        }
+    }
+    )
+
+    //date end
+    let streetMessage = document.getElementById("streetInvalid");
+    var street = document.querySelector('#street');
+        street.addEventListener('keyup', function(){
+            if(street.value.length < 5){
+                
+                street.style.border= '4px solid red';
+                streetCheck = false;
+                streetMessage.style.display= "block";
+            }else {
+                streetMessage.style.display = "none";
+                street.style.border = 'none';
+                streetCheck = true;
+            }
+        });
+
+        let houseMessage = document.getElementById("houseInvalid");
+        var house = document.querySelector('#house');
+        house.addEventListener('keyup', function(){
+            function allNum(input){
+            var num = /^[0-9]+$/;
+            if(input.value.match(num)){
+                house.style.border = '2px solid black';
+                houseMessage.style.display="none";
+                houseCheck = true;
+                
+            }else{
+                house.style.border= '4px solid red';
+                houseMessage.style.display = "block";
+                
+                houseCheck = false;
+                }
+            }
+            allNum(house);
+        });
+
+        var flat = document.querySelector('#flat');
+        let flatMessage = document.getElementById("flatInvalid");
+        flat.addEventListener('keyup', function(){
+            function allNum(input){
+            var num = /^[1-9–]+[-0-9–]*$/;
+            if(input.value.match(num)){
+                flat.style.border = '2px solid black';
+                flatMessage.style.display="none";
+                flatCheck = true;
+                
+            }else{
+                flat.style.border= '4px solid red';
+                flatMessage.style.display="block";
+                flatCheck = false;
+                }
+            }
+            allNum(flat);
+        });
+
+        //payment check:
+        const submitBtn = document.getElementById("btn-complete");
+        
+
+    if(paymentCheck){
+        console.log("YESS");
+    }
+
+        // button enable:
+        function isEmpty(){
+            if(userCheck === true && surnameCheck === true){
+                enterDate.addEventListener('input', () => {
+                if(dateCheck===true){
+                    buttonEnable = true;
+                }
+            }
+            )
+                
+            }
+
+            if(buttonEnable2== true && paymentCheck == true && buttonEnable == true){
+                btnComplete.removeAttribute("disabled");
+            }
+        }
+        var buttonEnable2 = false;
+
+        function isEmpty1(){
+            if(streetCheck===true && houseCheck ===true && flatCheck === true && buttonEnable){
+                    buttonEnable2 = true;
+                  }
+
+                  if(buttonEnable2== true && paymentCheck == true && buttonEnable == true){
+                btnComplete.removeAttribute("disabled");
+            }
+        }
+
+        function confirm(){
+    
+            if(document.getElementById("cash").checked==true) {
+                paymentCheck = true;
+            
+            }else if(document.getElementById("card").checked==true) {
+                        paymentCheck = true;
+            }else{
+                        paymentCheck = false;
+            }
+            if(buttonEnable2== true && paymentCheck == true && buttonEnable == true){
+                btnComplete.removeAttribute("disabled");
+            }
+        }
+
+    
+
+        
+
+        let popUpWindow = document.getElementById("popup-window");
+        let nameCopy = document.getElementById("user");
+        let btnComplete = document.getElementById("btn-complete");
+        btnComplete.onclick = () =>{
+         popUpWindow.style.display = "block";
+        popUpWindow.innerHTML= "The order created. The delivery address is" + street.value + ", " + house.value + ", " + flat.value + ". Customer " +nameCopy.value + " " +surname.value + " <br> <br> <br> <br> Thank you, visit us again! :)" ;
+        }
+
+        let pop = document.getElementById("popup-window");
+        
+      
+        pop.innertext = nameCopy.value;
+        
+            
+    </script>
+</body>
+</html>
